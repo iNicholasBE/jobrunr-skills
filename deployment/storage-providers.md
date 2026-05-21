@@ -43,16 +43,9 @@ Use this skill to pick the right backing store for JobRunr.
 
 ## Choosing between options
 
-Rules of thumb:
-
-- **Postgres** if you don't already have a strong opinion. Mature, widely
-  hosted, JobRunr's most-tested provider.
-- **Your existing application database** if you have one. Co-locating
-  JobRunr with your business data keeps the operational footprint small.
-- **MongoDB** only if you already run it. Don't add Mongo just for
-  JobRunr — SQL is fine.
-- **In-memory** in unit tests and a single-process demo. Never in
-  production with more than one replica.
+- Default to **Postgres** or your existing application DB.
+- Use **MongoDB** only if you already run it (don't add it just for JobRunr).
+- **In-memory** is tests and single-process demos only — never multi-replica prod.
 
 ## Working example — Spring Boot with Postgres
 

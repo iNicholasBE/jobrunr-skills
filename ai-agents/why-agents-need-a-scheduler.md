@@ -16,23 +16,12 @@ Use this skill when an LLM is about to write a `ScheduledExecutorService`,
 shouldn't block the request thread. Read this *before* writing the
 scheduler.
 
-## What an agent actually needs from a scheduler
+## What an agent needs that a thread pool doesn't give
 
-1. **Durability** — the agent runtime restarts on every deploy. If a
-   pending follow-up lives in JVM memory, it evaporates.
-2. **Retries** — LLM and tool calls are flaky. Network timeouts, rate
-   limits, transient 5xx. The scheduler needs to retry without the agent
-   re-reasoning about it.
-3. **Visibility** — when the user asks "did you schedule that reminder?",
-   you need an answer that doesn't require parsing logs.
-4. **Concurrency control** — an agent may decide to schedule the same job
-   twice. Idempotency by id matters.
-5. **Time-aware** — "remind me Friday at 9am Brussels" needs a real cron
-   parser and zone handling. Hand-rolled `Thread.sleep` doesn't survive
-   DST or restart.
-
-`ScheduledExecutorService` satisfies zero of these. JobRunr satisfies all
-five out of the box.
+Durability across restart, retries on flaky tool calls, visibility for
+"did you schedule that?", idempotency by id, and zone-aware time
+handling. `ScheduledExecutorService` provides none of these; JobRunr
+provides all of them.
 
 ## Working example — Spring AI tool that schedules durable work
 

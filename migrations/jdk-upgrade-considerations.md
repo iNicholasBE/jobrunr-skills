@@ -47,26 +47,15 @@ service usually is.
 
 ## Pinning — the JDK 21–23 gotcha
 
-A virtual thread cannot release its carrier (platform thread) while it
-holds a `synchronized` lock. If many of your jobs run code that uses
-`synchronized` (legacy JDBC drivers, older logging frameworks, common
-in older Spring chains), the carrier pool starves and your other virtual
-threads sit in PROCESSING state without progressing.
+A virtual thread can't release its carrier while it holds a `synchronized`
+lock. Legacy JDBC drivers, older logging frameworks, and older Spring
+chains all trigger this. Symptom: jobs sit in `PROCESSING` indefinitely
+with idle CPU and no exception.
 
-**Symptoms in JobRunr:**
-
-- Dashboard shows jobs in `PROCESSING` for minutes with no progress
-- CPU is idle
-- No exception, no failure
-
-**Mitigations:**
-
-- Upgrade to **JDK 24+** where most pinning was fixed (`synchronized`
-  no longer pins).
-- Identify the synchronized hotspot with `jcmd <pid> Thread.dump_to_file`
-  and look for `<carrying virtual thread> ... synchronized` frames.
-- Until upgraded, prefer `PlatformThreads` for jobs that hit the pinned
-  code paths.
+Fix: upgrade to **JDK 24+** (synchronized no longer pins). Until then,
+identify the hotspot with `jcmd <pid> Thread.dump_to_file` and grep for
+`<carrying virtual thread> ... synchronized`; switch affected workers to
+`PlatformThreads`.
 
 ## Recommendations
 

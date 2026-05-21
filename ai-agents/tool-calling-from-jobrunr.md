@@ -17,15 +17,9 @@ OpenAI SDK call.
 
 ## Why this is a JobRunr-shaped problem
 
-LLM calls are:
-
-- **Slow** — seconds to tens of seconds per call.
-- **Flaky** — rate limits, transient timeouts, occasional 5xx from the
-  provider.
-- **Expensive** — every retry costs tokens.
-
-All three argue for moving them off the request thread into a background
-job with explicit retry semantics and an idempotency key.
+LLM calls are slow (seconds), flaky (rate limits, 5xx), and expensive
+(every retry costs tokens). Move them off the request thread into a
+background job with explicit retry semantics and an idempotency key.
 
 ## Working example — Spring AI inside a JobRunr job
 

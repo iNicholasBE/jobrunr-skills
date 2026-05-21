@@ -15,24 +15,14 @@ the framework actually captures when you call `enqueue(() -> ...)`.
 
 ## How JobRunr records a job
 
-JobRunr does **not** serialize the lambda itself. Instead, it inspects the
-lambda with ASM at enqueue time and extracts:
+ASM inspects the lambda at enqueue time and extracts the target class,
+method name, and *literal argument values*. The lambda body itself is
+not serialized. At run time, JobRunr asks the IoC container for a fresh
+receiver and invokes the method with the deserialized arguments.
 
-- The **target class** (e.g. `EmailService`)
-- The **method name** and signature
-- The **literal argument values** passed at the call site
-
-Those three things are serialized to JSON and stored. When the job runs,
-JobRunr asks the IoC container for a fresh `EmailService` instance and
-invokes the method with the deserialized arguments.
-
-This has three consequences:
-
-1. The lambda must call exactly *one* method on exactly *one* receiver.
-2. Anything captured from the enclosing scope is captured as a *value* at
-   enqueue time — closure state is not re-evaluated when the job runs.
-3. The receiver instance you "see" inside the lambda is not the one used
-   to run the job. The container resolves a new one.
+Consequences: the lambda must be one method call on one receiver;
+captured locals are stored *as values* at enqueue time, not re-evaluated
+on run; the receiver instance you see is not the one that runs the job.
 
 ## Working examples — right and wrong
 

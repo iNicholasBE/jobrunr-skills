@@ -14,22 +14,11 @@ stale data when it runs.
 
 ## How JobRunr serializes
 
-When you enqueue a job, JobRunr serializes the method signature and every
-argument to JSON, then stores the JSON in the storage provider. When the
-job runs, the JSON is deserialized back into argument values.
-
-JobRunr auto-detects which JSON library is on the classpath, in this
-preference order:
-
-1. Kotlin Serialization
-2. Jackson 3
-3. Jackson 2
-4. Gson
-5. JSON-B
-
-If you don't have a JSON library transitively (common in non-web apps),
-you must add one explicitly — `jackson-databind`, `gson`, or the
-equivalent.
+Method signature + arguments → JSON, stored in the storage provider,
+deserialized when the job runs. JobRunr auto-detects the JSON library
+on the classpath in this order: Kotlin Serialization, Jackson 3,
+Jackson 2, Gson, JSON-B. Non-web apps often don't get one transitively
+— add `jackson-databind` (or equivalent) explicitly.
 
 ## What is safe to pass
 

@@ -19,18 +19,12 @@ Use this skill when deploying a JobRunr-backed Java service to Kubernetes.
 
 ## Topology
 
-JobRunr workers are stateless. Workers don't talk to each other — they
-poll the shared storage provider and claim jobs there. A `Deployment` with
-N replicas is the right shape.
+Workers are stateless and don't talk to each other — they poll the
+shared storage and claim jobs there. Use a `Deployment` with N replicas.
 
-The dashboard is also stateless (reads from the same store), but you
-usually want exactly *one* HTTP endpoint to serve it. Either:
-
-- Enable the dashboard on all replicas and front them behind a `Service`
-  (any replica returns the same data — counters come from storage), or
-- Enable the dashboard on a single dedicated `Deployment` with one replica.
-
-The first is simpler; the second is cleaner for SSO and access control.
+The dashboard is also stateless. Either enable it on all replicas behind
+a `Service` (simplest) or pin it to one dedicated `Deployment` with one
+replica (cleaner for SSO).
 
 ## Working example — worker Deployment
 

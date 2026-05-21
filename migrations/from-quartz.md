@@ -10,9 +10,8 @@ frameworks: [spring-boot, micronaut, quarkus]
 
 # Migrating from Quartz to JobRunr
 
-Use this skill when an existing Java application uses Quartz Scheduler and
-the team wants to move to JobRunr — for the dashboard, the lambda API, the
-distributed-by-default model, or to drop the JDBC-JobStore boilerplate.
+Use this skill when migrating an existing application from Quartz to
+JobRunr.
 
 ## Prerequisites
 
