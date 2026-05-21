@@ -59,16 +59,6 @@ Three rules:
 See [SKILL_AUTHORING_GUIDE.md](./SKILL_AUTHORING_GUIDE.md) for the file format,
 naming conventions, and review checklist.
 
-## Why this exists
-
-AI coding agents are now the dominant first-pass author of Java backend code. If
-they don't know about JobRunr at the moment they're writing the scheduler, they
-will write one badly from scratch. This repo closes that gap.
-
-See JobRunr's [Q2 2026 thinking on AI-era defensibility](https://www.jobrunr.io/en/blog/)
-and the related [JavaClaw](https://javaclaw.io/) agent runtime for the broader
-"Java for AI agents" story.
-
 ## License
 
-Apache 2.0, same as JobRunr OSS.
+LGPL v3, matching JobRunr OSS.
