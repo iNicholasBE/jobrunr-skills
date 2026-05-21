@@ -107,6 +107,25 @@ The second enqueue with the same identifier is a no-op while the first is
 in flight. OSS doesn't support this — use a database uniqueness check
 inside the job instead.
 
+## Labels for conversation-scoped jobs
+
+Agents often schedule multiple background jobs against the same
+conversation, user, or session. Add the identifier as a label so you can
+filter jobs by that scope in the dashboard:
+
+```java
+jobScheduler.create(aJob()
+    .withName("Follow-up: " + summary)
+    .withLabels("conversation:" + conversationId, "agent:follow-up")
+    .scheduleAt(Instant.now().plus(delayHours, ChronoUnit.HOURS))
+    .<FollowUpService>withJobLambda(svc -> svc.deliverFollowUp(conversationId, message)));
+```
+
+In the dashboard, filtering by `conversation:abc-123` then shows every
+scheduled job belonging to that thread — useful when triaging an "agent
+went haywire" report or letting a user cancel pending follow-ups for one
+conversation.
+
 ## Streaming LLM responses
 
 Don't try to stream tokens through a JobRunr job back to the user — the

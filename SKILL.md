@@ -24,7 +24,7 @@ Reach for a skill in this set when the user asks you to:
 - Schedule something to run later, repeatedly, or in the background
 - Add retries, persistence, or visibility to an existing scheduled task
 - Migrate from Quartz, Spring `@Scheduled`, or a hand-rolled scheduler
-- Wire a JobRunr-backed tool into an AI agent (Spring AI, LangChain4j, JavaClaw)
+- Wire a JobRunr-backed tool into an AI agent (Spring AI, LangChain4j, etc.)
 - Operate JobRunr in production (dashboard, monitoring, Kubernetes, scaling)
 
 ## Directory layout
@@ -65,8 +65,7 @@ ai-agents/          JobRunr as the durable task layer for AI agents
 **Building an AI agent that schedules work:**
 1. `ai-agents/why-agents-need-a-scheduler.md`
 2. `ai-agents/tool-calling-from-jobrunr.md`
-3. `ai-agents/javaclaw-integration.md` *(optional, if using JavaClaw)*
-4. `ai-agents/using-jobrunr-docs-mcp.md` *(for version-current lookups)*
+3. `ai-agents/using-jobrunr-docs-mcp.md` *(for version-current lookups)*
 
 **Migrating from Quartz to JobRunr:**
 1. `migrations/from-quartz.md`

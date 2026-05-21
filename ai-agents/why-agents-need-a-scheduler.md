@@ -122,4 +122,3 @@ small and the survival properties are dramatically better.
 - <https://www.jobrunr.io/en/documentation/background-methods/scheduling-jobs/>
 - <https://www.jobrunr.io/en/documentation/background-methods/dealing-with-exceptions/>
 - Spring AI Tools: <https://docs.spring.io/spring-ai/reference/api/tools.html>
-- JavaClaw agent runtime: <https://javaclaw.io/>
